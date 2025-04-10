@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Message for Subham</title>
+    <link rel="stylesheet" href="animations.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+
+    <div class="present-container">
+        <div class="click-me">Click the Present! 🎁</div>
+        <div class="gift-box">
+            <div class="lid">🎁</div>
+            <div class="box">📦</div>
+        </div>
+    </div>
+
+    <div class="message-container hidden">
+        <div class="message-layer" id="layer1">Hey Subham...</div>
+        <div class="message-layer" id="layer2">You know what?</div>
+        <div class="message-layer" id="layer3">I have something special to tell you...</div>
+        <div class="message-layer" id="layer4">
+            <div class="heart"></div>
+            <div class="main-message">I Love You Subham!</div>
+        </div>
+        <div class="teddy-container hidden">
+            <div class="teddy">🧸</div>
+            <div class="teddy-message">And here's a cuddle buddy for you! ❤️</div>
+        </div>
+    </div>
+
+    <div class="floating-hearts"></div>
+
+    <script>
+        document.querySelector('.gift-box').addEventListener('click', function() {
+            this.classList.add('open');
+            setTimeout(() => {
+                document.querySelector('.message-container').classList.remove('hidden');
+                document.querySelector('.present-container').classList.add('move-up');
+                revealMessages();
+            }, 800);
+        });
+
+        function revealMessages() {
+            const layers = document.querySelectorAll('.message-layer');
+            layers.forEach((layer, index) => {
+                setTimeout(() => {
+                    layer.classList.add('visible');
+                    if (index === layers.length - 1) {
+                        setTimeout(showTeddy, 1200);
+                    }
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#ff69b4', '#ff1493', '#ffffff'],
+                        ticks: 200
+                    });
+                }, index * 1500);
+            });
+        }
+
+        function showTeddy() {
+            document.querySelector('.teddy-container').classList.remove('hidden');
+            confetti({
+                particleCount: 200,
+                spread: 180,
+                origin: { y: 0.8 },
+                colors: ['#ff69b4', '#ff1493', '#ffffff'],
+                ticks: 300
+            });
+        }
+
+        // Add mouse sparkle effect
+        document.addEventListener('mousemove', function(e) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'mouse-sparkle';
+            sparkle.style.left = e.pageX + 'px';
+            sparkle.style.top = e.pageY + 'px';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 
